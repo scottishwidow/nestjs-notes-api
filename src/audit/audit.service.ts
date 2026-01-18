@@ -1,28 +1,21 @@
-import { Injectable } from '@nestjs/common';
-import { AuditEvent, AuditEventType } from './audit.types';
-
-function uid(prefix = 'evt') {
-  return `${prefix}_${Math.random().toString(16).slice(2)}_${Date.now()}`;
-}
+import { Inject, Injectable } from '@nestjs/common';
+import {
+  AUDIT_REPOSITORY,
+  AuditRepository,
+} from './audit.repository';
+import { AuditEventType } from './audit.types';
 
 @Injectable()
 export class AuditService {
-  private readonly events: AuditEvent[] = [];
+  constructor(
+    @Inject(AUDIT_REPOSITORY) private readonly repo: AuditRepository,
+  ) {}
 
   record(noteId: string, type: AuditEventType, meta?: Record<string, unknown>) {
-    const event: AuditEvent = {
-      id: uid(),
-      noteId,
-      type,
-      at: new Date().toISOString(),
-      meta,
-    };
-    this.events.unshift(event);
-    return event;
+    return this.repo.record(noteId, type, meta);
   }
 
   list(noteId?: string) {
-    if (!noteId) return this.events;
-    return this.events.filter((e) => e.noteId === noteId);
+    return this.repo.list(noteId);
   }
 }
