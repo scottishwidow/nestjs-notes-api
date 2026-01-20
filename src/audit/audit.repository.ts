@@ -79,7 +79,7 @@ export class PgAuditRepository implements AuditRepository {
 export class InMemoryAuditRepository implements AuditRepository {
   private readonly events: AuditEvent[] = [];
 
-  async record(
+  record(
     noteId: string,
     type: AuditEventType,
     meta?: Record<string, unknown>,
@@ -92,11 +92,11 @@ export class InMemoryAuditRepository implements AuditRepository {
       meta,
     };
     this.events.unshift(event);
-    return event;
+    return Promise.resolve(event);
   }
 
-  async list(noteId?: string) {
-    if (!noteId) return this.events;
-    return this.events.filter((e) => e.noteId === noteId);
+  list(noteId?: string) {
+    if (!noteId) return Promise.resolve(this.events);
+    return Promise.resolve(this.events.filter((e) => e.noteId === noteId));
   }
 }

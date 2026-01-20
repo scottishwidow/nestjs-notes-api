@@ -151,7 +151,7 @@ export class PgNotesRepository implements NotesRepository {
 export class InMemoryNotesRepository implements NotesRepository {
   private readonly notes = new Map<string, Note>();
 
-  async list(params: ListNotesParams) {
+  list(params: ListNotesParams) {
     const all = Array.from(this.notes.values());
     const filtered = all.filter((n) => {
       if (
@@ -170,24 +170,25 @@ export class InMemoryNotesRepository implements NotesRepository {
 
     const total = filtered.length;
     const items = filtered.slice(params.offset, params.offset + params.limit);
-    return { total, items };
+    return Promise.resolve({ total, items });
   }
 
-  async get(id: string) {
-    return this.notes.get(id) ?? null;
+  get(id: string) {
+    return Promise.resolve(this.notes.get(id) ?? null);
   }
 
-  async create(note: Note) {
+  create(note: Note) {
     this.notes.set(note.id, note);
-    return note;
+    return Promise.resolve(note);
   }
 
-  async update(note: Note) {
+  update(note: Note) {
     this.notes.set(note.id, note);
-    return note;
+    return Promise.resolve(note);
   }
 
-  async remove(id: string) {
+  remove(id: string) {
     this.notes.delete(id);
+    return Promise.resolve();
   }
 }
