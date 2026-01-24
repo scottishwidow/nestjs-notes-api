@@ -79,11 +79,7 @@ export class PgAuditRepository implements AuditRepository {
 export class InMemoryAuditRepository implements AuditRepository {
   private readonly events: AuditEvent[] = [];
 
-  record(
-    noteId: string,
-    type: AuditEventType,
-    meta?: Record<string, unknown>,
-  ) {
+  record(noteId: string, type: AuditEventType, meta?: Record<string, unknown>) {
     const event: AuditEvent = {
       id: `evt_${Math.random().toString(16).slice(2)}_${Date.now()}`,
       noteId,
