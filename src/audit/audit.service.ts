@@ -1,8 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import {
-  AUDIT_REPOSITORY,
-  AuditRepository,
-} from './audit.repository';
+import { AUDIT_REPOSITORY, AuditRepository } from './audit.repository';
 import { AuditEventType } from './audit.types';
 
 @Injectable()

@@ -3,10 +3,7 @@ import { randomUUID } from 'crypto';
 import { AuditService } from '../audit/audit.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
-import {
-  NOTES_REPOSITORY,
-  NotesRepository,
-} from './notes.repository';
+import { NOTES_REPOSITORY, NotesRepository } from './notes.repository';
 import { Note } from './notes.types';
 
 @Injectable()

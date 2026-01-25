@@ -1,0 +1,8 @@
+# Formatting
+pnpm format
+
+# Linting
+pnpm lint-staged
+
+# Start unit tests for project
+pnpm test
