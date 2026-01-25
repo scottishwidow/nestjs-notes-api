@@ -30,7 +30,7 @@ jobs:
         run: pnpm lint
 
       - name: Prettier
-        run: pnpm format:check
+        run: pnpm format
 
       - name: Run unit tests
         run: pnpm test
