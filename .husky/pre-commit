@@ -4,5 +4,5 @@ pnpm format
 # Linting
 pnpm lint-staged
 
-# Start unit tests
+# Start unit tests for project
 pnpm test
