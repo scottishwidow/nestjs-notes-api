@@ -1,4 +1,4 @@
-name: 'PR title validation'
+name: 'PR title validation test'
 
 on:
   pull_request_target:
