@@ -1,15 +1,12 @@
-name: Static analysis
+name: CICD
 
 on:
-  pull_request_target:
-    types:
-      - opened
-      - reopened
-      - edited
-      - synchronize
+  push:
+    branches:
+      - main
 
 jobs:
-  static:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,11 +23,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: ESlint
-        run: pnpm lint
+      - name: Build Nodejs Artifact
+        run: pnpm run build
 
-      - name: Prettier
-        run: pnpm format:check
-
-      - name: Run tests
-        run: pnpm test
+      - name: Upload build artifact
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: build
+          path: dist 

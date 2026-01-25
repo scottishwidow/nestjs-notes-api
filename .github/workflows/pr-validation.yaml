@@ -1,4 +1,4 @@
-name: 'Lint PR'
+name: Lint PR
 
 on:
   pull_request_target:
@@ -6,7 +6,7 @@ on:
       - opened
       - reopened
       - edited
-      # - synchronize (if you use required Actions)
+      - synchronize
 
 jobs:
   main:
@@ -20,7 +20,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-# Default: https://github.com/commitizen/conventional-commit-types
           types: |
             fix
             feat
@@ -41,7 +40,7 @@ jobs:
           ignoreLabels: |
             bot
             ignore-semantic-pull-request
-          headerPattern:^\w*)?:\(\w$\-*/ ]*)\))?: (.*)$*
+          headerPattern: '^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$'
           headerPatternCorrespondence: type, scope, subject
           wip: true
           validateSingleCommit: false
