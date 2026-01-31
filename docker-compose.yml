@@ -1,4 +1,14 @@
 services:
+  nginx:
+    image: nginx:1.25-alpine
+    depends_on:
+      - nest-app 
+    ports: 
+      - 8080:80
+    configs:
+      - source: nginx_default_conf
+        target: etc/nginx/conf.d/default.conf
+
   nest-app:
     build: 
       context: .
@@ -12,6 +22,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    ports:
+      - 3000:3000
 
   postgres:
     container_name: postgres 
@@ -27,10 +39,14 @@ services:
       interval: 20s
       timeout: 15s
       retries: 10
+    ports:
+      - 5432:5432
 
 volumes:
   db-data:
 
-
+configs:
+  nginx_default_conf:
+    file: ./nginx/default.conf 
 
 
